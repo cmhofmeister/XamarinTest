@@ -1,0 +1,72 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxc="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:dxcv="http://schemas.devexpress.com/xamarin/2014/forms/collectionview"
+             xmlns:local="clr-namespace:T806443"
+             x:Class="T806443.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:ViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <dxcv:DXCollectionView x:Name="collectionView" ItemsSource="{Binding Devices}">
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="5">
+                            <StackLayout Padding="5">
+
+                                <Label Text="{Binding Temperature}"/>
+
+                                    <dxc:PieChartView HeightRequest="200">
+                                    <dxc:PieChartView.Series>
+                                        <dxc:DonutSeries>
+                                            <dxc:DonutSeries.Data>
+                                                <local:LandAreaDataAdapter ItemsSource="{Binding LandAreas}" />
+                                            </dxc:DonutSeries.Data>
+                                        </dxc:DonutSeries>
+                                    </dxc:PieChartView.Series>
+                                    </dxc:PieChartView>
+                                               
+                                <dxc:ChartView HeightRequest="200">
+                                    <dxc:ChartView.Series>
+                                        <dxc:LineSeries>
+                                            <dxc:LineSeries.Data>
+                                                <local:TempSensorDataAdapter ItemsSource="{Binding SensorData}"/>
+                                            </dxc:LineSeries.Data>
+                                        </dxc:LineSeries>
+                                    </dxc:ChartView.Series>
+                                        <dxc:ChartView.AxisX>
+                                        <dxc:DateTimeAxisX MeasureUnit="Second" 
+                                            GridAlignment="Second" 
+                                            GridSpacing="5"/>
+                                        </dxc:ChartView.AxisX>
+                                        <dxc:ChartView.AxisY>
+                                        <dxc:NumericAxisY>
+                                            <dxc:NumericAxisY.Title>
+                                                <dxc:AxisTitle Text="Temperature">
+                                                    <dxc:AxisTitle.Style>
+                                                        <dxc:TitleStyle>
+                                                            <dxc:TitleStyle.TextStyle>
+                                                                <dxc:TextStyle Size="16"/>
+                                                            </dxc:TitleStyle.TextStyle>
+                                                        </dxc:TitleStyle>
+                                                    </dxc:AxisTitle.Style>
+                                                </dxc:AxisTitle>
+                                            </dxc:NumericAxisY.Title>
+                                            <dxc:NumericAxisY.Label>
+                                                <dxc:AxisLabel TextFormat="#.#" Position="Inside"/>
+                                            </dxc:NumericAxisY.Label>
+                                        </dxc:NumericAxisY>
+                                        </dxc:ChartView.AxisY>
+                                </dxc:ChartView>
+                        </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+
+    </ContentPage.Content>
+
+</ContentPage>
